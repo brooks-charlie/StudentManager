@@ -27,12 +27,12 @@ public class StudentServlet extends HttpServlet {
             System.err.println("Failed to create sessionFactory object." + ex);
             throw new ExceptionInInitializerError(ex);
         }
-
+        //Get form data from fields.
         String first_name = request.getParameter("first_name");
         String last_name = request.getParameter("last_name");
         String email = request.getParameter("email");
 
-
+        //Setup html page for response
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         String title = "Student List";
@@ -44,26 +44,22 @@ public class StudentServlet extends HttpServlet {
                 "<body bgcolor = \"#fff\">\n" +
                 "<h1 align = \"center\">" + title + "</h1>\n"
         );
-        //out.println("/AddStudent");
-        out.println("getRequestURI is: " +request.getRequestURI());
-        out.println("getServletPath is: " +request.getServletPath());
-        out.println("getPathInfo is: " +request.getPathInfo());
-        out.println("getmethod is: " +request.getMethod());
-        out.println("getServletContext is: " +request.getServletContext());
+        //
+        //out.println("getRequestURI is: " +request.getRequestURI());
+        //out.println("getServletPath is: " +request.getServletPath());
+        //out.println("getPathInfo is: " +request.getPathInfo());
+        //out.println("getmethod is: " +request.getMethod());
+        //out.println("getServletContext is: " +request.getServletContext());
 
 
-        ///if (last_name != "" || first_name != "") {
+        //Check to see if the Add Student button is pressed or the List Student
         if (request.getServletPath().equals("/AddStudent")) {
-            //out.println("add student servlet section");
-            //out.println("getRequestURI is: " +request.getRequestURI());
-            //out.println("getServletPath is: " +request.getServletPath());
+            //Add the student
             Student student = new Student(first_name, last_name, email);
             out.println("The new Student has been added. The new student id is: " + student.addStudent(factory));
 
         } else if (request.getServletPath().equals("/ListStudents")){
             // Set response content type
-
-
             out.println(
                             "<table width = \"80%\" border = \"1\" align = \"center\">\n" +
                             "<tr bgcolor = \"#949494\">\n" +

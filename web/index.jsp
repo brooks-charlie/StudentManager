@@ -6,7 +6,7 @@
   <title>Manage Students</title>
 </head>
 <body>
-<h1 align = "center">Manage Students</h1>
+<h1 align = "center">Manage Students1</h1>
 <form action = "ListStudents" method = "POST">
 
   <input type = "submit" value = "List Students" name="list_students" />
