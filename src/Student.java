@@ -12,11 +12,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
+import org.quickconnectfamily.json.*;
+import org.quickconnectfamily.json.JSONUtilities;
 
 //import org.javax.json.simple.JSONObject;
 
@@ -129,9 +129,9 @@ public class Student {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
 
-        try {
-            //System.out.println(gson.toJson(studentList));
-        } catch (Exception e) { }
+        //try {
+        //    //System.out.println(gson.toJson(studentList));
+        //} catch (Exception e) { }
 
         try{
             FileWriter file = new FileWriter("students.txt");
@@ -142,6 +142,9 @@ public class Student {
         }
         return gson.toJson(studentList);
     }
+
+
+
 
     //JSON Parse
     public JSONArray parseJson(String filePath) {
@@ -160,6 +163,48 @@ public class Student {
             ex.printStackTrace();
         }
         return jsonArray;
+    }
+
+
+    //QCJSON stringify
+    public String stringifyJson(List studentList){
+
+        //Object anObject = this.mapStudents(studentList);
+        ArrayList aJSONArrayList = new ArrayList();
+        aJSONArrayList.add("1");
+        aJSONArrayList.add("hello");
+        HashMap aJSONArrayListHash = new HashMap();
+        aJSONArrayListHash.put("name","fred");
+        aJSONArrayListHash.put("age","23");
+        aJSONArrayList.add(aJSONArrayListHash);
+
+        String aJSONString = "[“1”, “hello”, {“name”:”fred”,”age”:”23″}]";
+        //"{“state”:”Idaho”, “city”:”Rexburg”, “people”:[“bob”,”sue”]}";
+        //Serializable anObject = null;
+        Object anObject = null;
+        String jsonString = null;
+        try {
+            anObject = JSONUtilities.parse(aJSONString);
+            jsonString = JSONUtilities.stringify(aJSONArrayList);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (org.quickconnectfamily.json.ParseException e) {
+            e.printStackTrace();
+        }
+        return jsonString;
+    }
+    
+    //QCJSON parse
+    public Object parseStudentList(String filePath){
+        Object studentObjects = null;
+        try {
+            studentObjects = JSONUtilities.parse(filePath);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (org.quickconnectfamily.json.ParseException e) {
+            e.printStackTrace();
+        }
+        return studentObjects;
     }
 
 
