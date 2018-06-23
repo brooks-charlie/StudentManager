@@ -124,6 +124,7 @@ public class Student {
     }
 
     //JSON Build
+    // Take the list of students from the database and write to a file
     public String createJson(List studentList){
 
         GsonBuilder gsonBuilder = new GsonBuilder();
