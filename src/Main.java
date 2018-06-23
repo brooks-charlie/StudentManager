@@ -60,7 +60,17 @@ public class Main {
             student.treeSetStudents(student.listStudents(factory));
             student.treeMapStudents(student.listStudents(factory));
             System.out.println(student.createJson(student.listStudents(factory)));
-            System.out.println("PArse: "+student.parseJson("students.txt"));
+            try {
+                System.out.println("Parse: "+student.parseJson("https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web/students.txt",true));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                System.out.println("Parse: "+student.parseJson("students.txt",false));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             //Next add javax.json file to database
         }
 

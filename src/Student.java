@@ -14,10 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.*;
 import java.lang.reflect.Array;
+import java.net.MalformedURLException;
 import java.util.*;
 import org.quickconnectfamily.json.*;
 import org.quickconnectfamily.json.JSONUtilities;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 //import org.javax.json.simple.JSONObject;
 
 @Entity
@@ -148,20 +153,37 @@ public class Student {
 
 
     //JSON Parse
-    public JSONArray parseJson(String filePath) {
+    public JSONArray parseJson(String filePath,boolean isUrl) throws Exception {
         //String filePath = "students.txt";
         JSONArray jsonArray = null;
-        try {
-            FileReader reader = new FileReader(filePath);
-            JSONParser jsonParser = new JSONParser();
-            jsonArray = (JSONArray) jsonParser.parse(reader);
 
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        }catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ParseException ex) {
-            ex.printStackTrace();
+        if(isUrl){
+            URL WebPage = new URL(filePath);
+            URLConnection urlc = WebPage.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+            JSONParser jsonParser = new JSONParser();
+            jsonArray = (JSONArray) jsonParser.parse(in);
+
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+                System.out.println(inputLine);
+            in.close();
+        }
+        else {
+            try {
+
+                FileReader reader = new FileReader(filePath);
+                JSONParser jsonParser = new JSONParser();
+                jsonArray = (JSONArray) jsonParser.parse(reader);
+
+
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
         }
         return jsonArray;
     }
