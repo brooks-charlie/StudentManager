@@ -67,6 +67,7 @@ public class Main {
             }
             try {
                 System.out.println("Parse: "+student.parseJson("students.txt",false));
+                System.out.println("Parse web.xml: "+student.parseJson("web.xml",false));
             } catch (Exception e) {
                 e.printStackTrace();
             }
