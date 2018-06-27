@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 
 // Extend HttpServlet class
 public class StudentServlet extends HttpServlet {
@@ -22,20 +24,6 @@ public class StudentServlet extends HttpServlet {
             throws ServletException, IOException {
 
 
-
-        //Student student = new Student();
-        //this.ServletHash.get(request.getRequestURI());
-
-        //SessionFactory factory;
-        //try {
-        //    factory = new Configuration()
-        //            .configure("hibernate.cfg.xml")
-        //            .addAnnotatedClass(Student.class)
-        //            .buildSessionFactory();
-        //} catch (Throwable ex) {
-        //    System.err.println("Failed to create sessionFactory object." + ex);
-        //    throw new ExceptionInInitializerError(ex);
-       // }
         //Get form data from fields.
         String first_name = request.getParameter("first_name");
         String last_name = request.getParameter("last_name");
@@ -53,10 +41,6 @@ public class StudentServlet extends HttpServlet {
                 "<body bgcolor = \"#fff\">\n" +
                 "<h1 align = \"center\">" + title + "</h1>\n"
         );
-        //
-
-        // Create hashmap with servlets
-
 
         out.println("getRequestURI is: " +request.getRequestURI());
         out.println(
@@ -67,8 +51,9 @@ public class StudentServlet extends HttpServlet {
 
         String filePath = "https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web.xml";
         out.println("file path is1: " + filePath);
-        Student student = new Student();
+
         try {
+            Student student = new Student();
             out.println("Parse servlet: "+student.parseJson(filePath,true));
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,30 +87,31 @@ public class StudentServlet extends HttpServlet {
 
 
         //Check to see if the Add Student button is pressed or the List Student
-        // Changed to use Application Controller Pattern - beginning
-        //if (request.getServletPath().equals("/AddStudent")) {
-        //    //Add the student
-        //    Student student = new Student(first_name, last_name, email);
-        //    out.println("The new Student has been added. The new student id is: " + student.addStudent(factory));
 
-        //} else if (request.getServletPath().equals("/ListStudents")){
-        //    // Set response content type
+        if (request.getServletPath().equals("/AddStudent")) {
+            //Add the student
+            Student student = new Student(first_name, last_name, email);
+            //student.addToDB();
+            out.println("The new Student has been added. The new student id is: " + student.addToDB());
+
+        } else if (request.getServletPath().equals("/ListStudents")){
+            // Set response content type
 
 
-         //   //List all the students in the database
-         //   Student students = new Student();
-         //   List allStudents = students.listStudents(factory);
-         //   for (Iterator iterator = allStudents.iterator(); iterator.hasNext(); ) {
-         //       Student student = (Student) iterator.next();
-         //       out.print("<tr><td>" + student.getId() + "</td>");
-         //       out.print("<td>" + student.getFirstName() + "</td>");
-         //       out.print("<td>" + student.getLastName() + "</td>");
-         //       out.println("<td>" + student.getEmail() + "</td></tr>");
+            //List all the students in the database
+            Student students = new Student();
+            List allStudents = students.listDB();
+            for (Iterator iterator = allStudents.iterator(); iterator.hasNext(); ) {
+                Student student = (Student) iterator.next();
+                out.print("<tr><td>" + student.getId() + "</td>");
+                out.print("<td>" + student.getFirstName() + "</td>");
+                out.print("<td>" + student.getLastName() + "</td>");
+                out.println("<td>" + student.getEmail() + "</td></tr>");
 
-         //       //out.println("Student ID: " + student.getId());
-         //   }
-         //   out.println("\n</table>\n");
-        //} // End of comments for Application controller pattern change
+                //out.println("Student ID: " + student.getId());
+            }
+            out.println("\n</table>\n");
+        }
 
 
 
