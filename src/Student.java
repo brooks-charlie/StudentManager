@@ -3,31 +3,27 @@ import com.google.gson.GsonBuilder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.quickconnectfamily.json.JSONException;
+import org.quickconnectfamily.json.JSONUtilities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.net.MalformedURLException;
-import java.util.*;
-import org.quickconnectfamily.json.*;
-import org.quickconnectfamily.json.JSONUtilities;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.*;
 //import org.javax.json.simple.JSONObject;
 
 @Entity
 @Table(name="student")
-public class Student {
+public class Student implements Populace{
 
     @Id
     @Column(name="id")
@@ -47,7 +43,23 @@ public class Student {
         this.lastName=lastName;
         this.email=email;
 
+
+
     }
+    public SessionFactory createFactory(){
+        SessionFactory factory;
+        try {
+            factory = new Configuration()
+                    .configure("hibernate.cfg.xml")
+                    .addAnnotatedClass(Student.class)
+                    .buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        return factory;
+    }
+
 
     public int getId() {
         return id;
@@ -80,8 +92,13 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
-    public int getNewStudentId(SessionFactory factory) {
-        Session session = factory.openSession();
+    //ManageDB DBConnection = new ManageDB();
+    public int getNewId() {
+
+        //ManageDB DBConnection = new ManageDB();
+        //Session session = ManageDB.createFactory().openSession();
+        //Session session = this.createFactory().openSession();
+        Session session = this.createFactory().openSession();
         Transaction tx = null;
         int studentId = 0;
         try {
@@ -103,9 +120,9 @@ public class Student {
     }
 
     //
-    public Integer addStudent(SessionFactory factory){
+    public Integer addToDB(){
         //save the student to the database
-        Session session = factory.getCurrentSession();
+        Session session = this.createFactory().getCurrentSession();
         try {
             // begin the session transaction
             session.beginTransaction();
@@ -125,7 +142,7 @@ public class Student {
             session.close();
         }
         // get and return the student id of the new student
-        return this.getNewStudentId(factory);
+        return this.getNewId();
     }
 
     //JSON Build
@@ -232,10 +249,10 @@ public class Student {
 
 
     //Java Collection List
-    public List listStudents(SessionFactory factory){
+    public List listDB(){
 
         Transaction tx = null;
-        Session session = factory.openSession();
+        Session session = this.createFactory().openSession();
         List students = null;
 
         try {
@@ -246,7 +263,7 @@ public class Student {
             students = query.list();
 
             Student student1 = (Student) students.get(0);
-            System.out.println("First Student ID from List: " + student1.getId());
+            System.out.println("First1 Student ID from List: " + student1.getId());
 
             for (Iterator iterator = students.iterator(); iterator.hasNext(); ) {
                 Student student = (Student) iterator.next();
@@ -262,7 +279,9 @@ public class Student {
         } finally {
             session.close();
 
+
         }
+        session.close();
         return students;
     }
 
@@ -341,9 +360,9 @@ public class Student {
         return students;
     }
 
-    public void searchStudents(SessionFactory factory, String name){
+    public void searchDB(String name){
         Transaction tx = null;
-        Session session = factory.openSession();
+        Session session = this.createFactory().openSession();
 
         try {
             tx = session.beginTransaction();
@@ -369,7 +388,7 @@ public class Student {
 
         // Do another search, but for last name this time.
         tx = null;
-        session = factory.openSession();
+        session = this.createFactory().openSession();
         try {
             tx = session.beginTransaction();
 
@@ -391,5 +410,7 @@ public class Student {
             session.close();
 
         }
+
     }
+
 }

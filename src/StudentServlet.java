@@ -1,7 +1,5 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,20 +15,27 @@ import java.io.PrintWriter;
 // Extend HttpServlet class
 public class StudentServlet extends HttpServlet {
 
+
+
     // Method to handle GET method request.
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        SessionFactory factory;
-        try {
-            factory = new Configuration()
-                    .configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(Student.class)
-                    .buildSessionFactory();
-        } catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+
+
+        //Student student = new Student();
+        //this.ServletHash.get(request.getRequestURI());
+
+        //SessionFactory factory;
+        //try {
+        //    factory = new Configuration()
+        //            .configure("hibernate.cfg.xml")
+        //            .addAnnotatedClass(Student.class)
+        //            .buildSessionFactory();
+        //} catch (Throwable ex) {
+        //    System.err.println("Failed to create sessionFactory object." + ex);
+        //    throw new ExceptionInInitializerError(ex);
+       // }
         //Get form data from fields.
         String first_name = request.getParameter("first_name");
         String last_name = request.getParameter("last_name");
@@ -49,6 +54,10 @@ public class StudentServlet extends HttpServlet {
                 "<h1 align = \"center\">" + title + "</h1>\n"
         );
         //
+
+        // Create hashmap with servlets
+
+
         out.println("getRequestURI is: " +request.getRequestURI());
         out.println(
                 "<table width = \"80%\" border = \"1\" align = \"center\">\n" +
@@ -56,7 +65,7 @@ public class StudentServlet extends HttpServlet {
                         "<th>Student ID</th> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>\n" +
                         "</tr>\n");
 
-        String filePath = "students.txt";
+        String filePath = "https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web.xml";
         out.println("file path is1: " + filePath);
         Student student = new Student();
         try {

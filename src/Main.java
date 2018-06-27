@@ -1,23 +1,15 @@
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
 import java.util.Scanner;
 
 
 public class Main {
-    private static SessionFactory factory;
+
     public static void main(String[] args) {
 
-        // Create the session factory
-        try {
-            factory = new Configuration()
-                    .configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(Student.class)
-                    .buildSessionFactory();
-        } catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+
+        System.out.println("Application Controller Pattern");
+        AppController controller = new AppController();
+        controller.ControllerHash("Student");
+
 
         // Add a student
         // Prompt to add student
@@ -41,9 +33,11 @@ public class Main {
 
         //create a student object using the variables from input
         Student student = new Student(firstname, lastname, email);
+            //ManageDB DBConnection = new ManageDB();
 
         // Add the student to the database and get the student id
-            System.out.println(student.addStudent(factory));
+            System.out.println(student.addToDB());
+            student.createFactory().close();
 
     }
 
@@ -53,25 +47,35 @@ public class Main {
         if(listStudents.equals("y") || listStudents.equals("Y")) {
 
             //List all the students in the database
-            Student student = new Student();
-            //student.listStudents(factory);
-            student.setStudents(student.listStudents(factory));
-            student.mapStudents(student.listStudents(factory));
-            student.treeSetStudents(student.listStudents(factory));
-            student.treeMapStudents(student.listStudents(factory));
-            System.out.println(student.createJson(student.listStudents(factory)));
-            try {
-                System.out.println("Parse: "+student.parseJson("https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web/students.txt",true));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                System.out.println("Parse: "+student.parseJson("students.txt",false));
-                System.out.println("Parse web.xml: "+student.parseJson("web.xml",false));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            StudentServlet studentservlet = new StudentServlet();
+            //StudentServlet studentservlet1 = studentservlet.ServletHash.get("/ListStudents");
+            //studentservlet.HandleServlet("/ListStudents");
+            //ManageDB DBConnection = new ManageDB();
 
+            Student student = new Student();
+            student.listDB();
+            student.setStudents(student.listDB());
+            student.mapStudents(student.listDB());
+            student.treeSetStudents(student.listDB());
+            student.treeMapStudents(student.listDB());
+            System.out.println(student.createJson(student.listDB()));
+            try {
+                System.out.println("Parse 1: "+student.parseJson("https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web/students.txt",true));
+                //System.out.println("Parse xml: "+student.parseJson("https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web.xml",true));
+                //System.out.println("Parse oracle: "+student.parseJson("https://www.oracle.com/index.html",true));
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                System.out.println("Parse last: "+student.parseJson("students.txt",false));
+                //System.out.println("Parse web.xml: "+student.parseJson("web.xml",false));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            student.createFactory().close();
+            //DBConnection.createFactory().close();
             //Next add javax.json file to database
         }
 
@@ -85,12 +89,16 @@ public class Main {
             searchName = scanner.nextLine();
 
             // search for the student
+            //ManageDB DBConnection = new ManageDB();
             Student student = new Student();
-            student.searchStudents(factory,searchName);
+            student.searchDB(searchName);
+            // We're done, close the factory
+            //this.createFactory().close();
+            student.createFactory().close();
         }
 
         // We're done, close the factory
-        factory.close();
+        //student.createFactory.close();
 
     }
 }
