@@ -4,15 +4,18 @@ public class AppController {
 
     HashMap<String,Populace> PopulaceControllerHash = new HashMap();
 
-    public void ControllerHash(String populace){
-
+    //public void ControllerHash(String populace){
+    public AppController(){
         PopulaceControllerHash.put("Student", new Student());
         PopulaceControllerHash.put("Faculty", new Faculty());
 
-        Populace popManager = PopulaceControllerHash.get(populace);
+        //Populace popManager = PopulaceControllerHash.get(populace);
 
-        popManager.listDB();
+        //popManager.listDB();
     }
+
+
+
     //public void HandleServlet(String uri) {
         //ServletHash = servletHash;
 

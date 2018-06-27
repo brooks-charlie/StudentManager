@@ -8,7 +8,11 @@ public class Main {
 
         System.out.println("Application Controller Pattern");
         AppController controller = new AppController();
-        controller.ControllerHash("Student");
+        //controller.ControllerHash("Student");
+        Populace collegeStudents = controller.PopulaceControllerHash.get("Student");
+        collegeStudents.listDB();
+        Populace faculty = controller.PopulaceControllerHash.get("Faculty");
+        faculty.listDB();
 
 
         // Add a student
@@ -47,7 +51,7 @@ public class Main {
         if(listStudents.equals("y") || listStudents.equals("Y")) {
 
             //List all the students in the database
-            StudentServlet studentservlet = new StudentServlet();
+            //StudentServlet studentservlet = new StudentServlet();
             //StudentServlet studentservlet1 = studentservlet.ServletHash.get("/ListStudents");
             //studentservlet.HandleServlet("/ListStudents");
             //ManageDB DBConnection = new ManageDB();
