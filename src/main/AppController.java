@@ -1,8 +1,10 @@
+package main;
+
 import java.util.HashMap;
 
 public class AppController {
 
-    HashMap<String,Populace> PopulaceControllerHash = new HashMap();
+    public HashMap<String,Populace> PopulaceControllerHash = new HashMap();
 
     //public void ControllerHash(String populace){
     public AppController(){

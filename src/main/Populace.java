@@ -1,3 +1,5 @@
+package main;
+
 import java.util.List;
 
 public interface Populace {
@@ -7,6 +9,6 @@ public interface Populace {
 
     public List listDB();
 
-    public void searchDB(String name);
+    public List searchDB(String name);
 
 }

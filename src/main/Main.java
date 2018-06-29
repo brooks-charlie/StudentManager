@@ -1,3 +1,5 @@
+package main;
+
 import java.util.Scanner;
 
 
@@ -8,10 +10,11 @@ public class Main {
 
         System.out.println("Application Controller Pattern");
         AppController controller = new AppController();
-        //controller.ControllerHash("Student");
-        Populace collegeStudents = controller.PopulaceControllerHash.get("Student");
+        //controller.ControllerHash("main.Student");
+
+        Populace collegeStudents = controller.PopulaceControllerHash.get("main.Student");
         collegeStudents.listDB();
-        Populace faculty = controller.PopulaceControllerHash.get("Faculty");
+        Populace faculty = controller.PopulaceControllerHash.get("main.Faculty");
         faculty.listDB();
 
 
@@ -37,7 +40,7 @@ public class Main {
 
         //create a student object using the variables from input
         Student student = new Student(firstname, lastname, email);
-            //ManageDB DBConnection = new ManageDB();
+            //main.ManageDB DBConnection = new main.ManageDB();
 
         // Add the student to the database and get the student id
             System.out.println(student.addToDB());
@@ -51,10 +54,10 @@ public class Main {
         if(listStudents.equals("y") || listStudents.equals("Y")) {
 
             //List all the students in the database
-            //StudentServlet studentservlet = new StudentServlet();
-            //StudentServlet studentservlet1 = studentservlet.ServletHash.get("/ListStudents");
+            //main.StudentServlet studentservlet = new main.StudentServlet();
+            //main.StudentServlet studentservlet1 = studentservlet.ServletHash.get("/ListStudents");
             //studentservlet.HandleServlet("/ListStudents");
-            //ManageDB DBConnection = new ManageDB();
+            //main.ManageDB DBConnection = new main.ManageDB();
 
             Student student = new Student();
             student.listDB();
@@ -93,9 +96,10 @@ public class Main {
             searchName = scanner.nextLine();
 
             // search for the student
-            //ManageDB DBConnection = new ManageDB();
+            //main.ManageDB DBConnection = new main.ManageDB();
             Student student = new Student();
             student.searchDB(searchName);
+            //student.searchDB(searchName);
             // We're done, close the factory
             //this.createFactory().close();
             student.createFactory().close();

@@ -1,3 +1,5 @@
+package main;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.simple.JSONArray;
@@ -32,7 +34,7 @@ public class StudentServlet extends HttpServlet {
         //Setup html page for response
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        String title = "Student List";
+        String title = "main.Student List";
         String docType =
                 "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
         out.println(docType +
@@ -46,7 +48,7 @@ public class StudentServlet extends HttpServlet {
         out.println(
                 "<table width = \"80%\" border = \"1\" align = \"center\">\n" +
                         "<tr bgcolor = \"#949494\">\n" +
-                        "<th>Student ID</th> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>\n" +
+                        "<th>main.Student ID</th> <th>First Name</th> <th>Last Name</th> <th>Email Address</th>\n" +
                         "</tr>\n");
 
         String filePath = "https://raw.githubusercontent.com/brooks-charlie/StudentManager/master/web.xml";
@@ -86,13 +88,13 @@ public class StudentServlet extends HttpServlet {
         //out.println("getServletContext is: " +request.getServletContext());
 
 
-        //Check to see if the Add Student button is pressed or the List Student
+        //Check to see if the Add main.Student button is pressed or the List main.Student
 
         if (request.getServletPath().equals("/AddStudent")) {
             //Add the student
             Student student = new Student(first_name, last_name, email);
             //student.addToDB();
-            out.println("The new Student has been added. The new student id is: " + student.addToDB());
+            out.println("The new main.Student has been added. The new student id is: " + student.addToDB());
 
         } else if (request.getServletPath().equals("/ListStudents")){
             // Set response content type
@@ -108,7 +110,7 @@ public class StudentServlet extends HttpServlet {
                 out.print("<td>" + student.getLastName() + "</td>");
                 out.println("<td>" + student.getEmail() + "</td></tr>");
 
-                //out.println("Student ID: " + student.getId());
+                //out.println("main.Student ID: " + student.getId());
             }
             out.println("\n</table>\n");
         }
@@ -132,7 +134,7 @@ public class StudentServlet extends HttpServlet {
         //in.close();
 
         out.println("</body></html>");
-            //Student student = new Student(firstname, lastname, email);
+            //main.Student student = new main.Student(firstname, lastname, email);
 
     }
 

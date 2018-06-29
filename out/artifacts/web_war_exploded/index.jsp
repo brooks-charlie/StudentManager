@@ -21,7 +21,7 @@
   <br/>
   email: <input type = "text" name = "email" />
   <br/>
-  <input type = "submit" value = "Add Student" name="add_student"/>
+  <input type = "submit" value = "Add main.Student" name="add_student"/>
 </form>
 </body>
 </html>
