@@ -1,20 +1,51 @@
 package main;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        for (int i=0; i<10; i++){
+            System.out.println("start " + i);
+            Runnable worker = new RunnableDemo();
+            executor.execute(worker);
+        }
+        executor.shutdown();
+
+
+        Thread thread1 = new Thread(new RunnableDemo());
+        thread1.start();
+        Thread thread2 = new Thread(new RunnableDemo());
+        thread2.start();
+        //thread1.start();
+
+        ThreadDemo thread3 = new ThreadDemo();
+        thread3.start();
+        ThreadDemo thread4 = new ThreadDemo();
+        thread4.start();
+        //thread1.threadTest(20);
+        //System.out.println("done thread 1");
+        //thread2.start();
+        //thread2.threadTest(10);
+        //thread2.start();
+
+        //Student newstudent1 = new Student();
+        //Student newstudent2 = new Student();
+        //newstudent1.listDB();
+        //newstudent2.listDB();
 
         System.out.println("Application Controller Pattern");
         AppController controller = new AppController();
         //controller.ControllerHash("main.Student");
 
-        Populace collegeStudents = controller.PopulaceControllerHash.get("main.Student");
+        Populace collegeStudents = controller.PopulaceControllerHash.get("Student");
         collegeStudents.listDB();
-        Populace faculty = controller.PopulaceControllerHash.get("main.Faculty");
+        Populace faculty = controller.PopulaceControllerHash.get("Faculty");
         faculty.listDB();
 
 

@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import sun.jvm.hotspot.runtime.Threads;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

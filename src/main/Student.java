@@ -265,11 +265,11 @@ public class Student implements Populace{
             students = query.list();
 
             Student student1 = (Student) students.get(0);
-            System.out.println("First1 main.Student ID from List: " + student1.getId());
+            System.out.println("First1 Student ID from List: " + student1.getId());
 
             for (Iterator iterator = students.iterator(); iterator.hasNext(); ) {
                 Student student = (Student) iterator.next();
-                System.out.print("main.Student ID: " + student.getId());
+                System.out.print("Student ID: " + student.getId());
                 System.out.print(" First Name: " + student.getFirstName());
                 System.out.print("  Last Name: " + student.getLastName());
                 System.out.println("  email: " + student.getEmail());
@@ -304,7 +304,7 @@ public class Student implements Populace{
         } catch (Exception e) { }
 
         //Set size method
-        System.out.println("The last main.Student ID is: " + studentIds.size());
+        System.out.println("The last Student ID is: " + studentIds.size());
         return studentIds;
     }
 
@@ -374,7 +374,7 @@ public class Student implements Populace{
             students = query.list();
             for (Iterator iterator = students.iterator(); iterator.hasNext(); ) {
                 Student student = (Student) iterator.next();
-                System.out.print("main.Student ID: " + student.getId());
+                System.out.print("Student ID: " + student.getId());
                 System.out.print(" First Name: " + student.getFirstName());
                 System.out.print("  Last Name: " + student.getLastName());
                 System.out.println("  email: " + student.getEmail());
@@ -399,7 +399,7 @@ public class Student implements Populace{
             students = query.list();
             for (Iterator iterator = students.iterator(); iterator.hasNext(); ) {
                 Student student = (Student) iterator.next();
-                System.out.print("main.Student ID: " + student.getId());
+                System.out.print("Student ID: " + student.getId());
                 System.out.print(" First Name: " + student.getFirstName());
                 System.out.print("  Last Name: " + student.getLastName());
                 System.out.println("  email: " + student.getEmail());
